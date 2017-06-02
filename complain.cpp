@@ -16,12 +16,12 @@ REQUIRE_GLOBAL(gamemode);
 
 static std::set<complaint *> complaints;
 
-DFhackCExport command_result plugin_init(color_ostream & out, std::vector<PluginCommand> & commands)
+DFhackCExport command_result plugin_init(color_ostream &, std::vector<PluginCommand> &)
 {
     return CR_OK;
 }
 
-DFhackCExport command_result plugin_shutdown(color_ostream & out)
+DFhackCExport command_result plugin_shutdown(color_ostream &)
 {
     return CR_OK;
 }

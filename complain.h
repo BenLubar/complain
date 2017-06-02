@@ -53,7 +53,7 @@ private:
     int32_t last_tick;
 };
 
-template<typename V, typename = std::enable_if<std::is_base_of<df::viewscreen, V>::value>::type>
+template<typename V, typename = typename std::enable_if<std::is_base_of<df::viewscreen, V>::value>::type>
 class viewscreen_complaint : public complaint
 {
 public:
