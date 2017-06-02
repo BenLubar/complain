@@ -14,6 +14,7 @@ using namespace df::enums;
 
 DFhackDataExport extern std::vector<std::string> *plugin_globals;
 
+DFhackCExport command_result plugin_enable(color_ostream &, bool);
 DFhackCExport command_result plugin_onstatechange(color_ostream &, state_change_event);
 DFhackCExport command_result plugin_onupdate(color_ostream &);
 
@@ -35,6 +36,7 @@ private:
     bool fortress;
     bool adventure;
 
+    friend command_result plugin_enable(color_ostream &, bool);
     friend command_result plugin_onstatechange(color_ostream &, state_change_event);
     friend command_result plugin_onupdate(color_ostream &);
 };
