@@ -26,8 +26,23 @@ DFhackCExport command_result plugin_shutdown(color_ostream &)
     return CR_OK;
 }
 
+DFhackCExport command_result plugin_enable(color_ostream &, bool is_enabled)
+{
+    enabled = is_enabled;
+    for (auto c : complaints)
+    {
+        c->reset();
+    }
+    return CR_OK;
+}
+
 DFhackCExport command_result plugin_onstatechange(color_ostream & out, state_change_event event)
 {
+    if (!enabled)
+    {
+        return CR_OK;
+    }
+
     for (auto c : complaints)
     {
         if (c->check_mode() && c->check_state_change(event))
@@ -40,6 +55,11 @@ DFhackCExport command_result plugin_onstatechange(color_ostream & out, state_cha
 
 DFhackCExport command_result plugin_onupdate(color_ostream & out)
 {
+    if (!enabled)
+    {
+        return CR_OK;
+    }
+
     for (auto c : complaints)
     {
         if (c->check_mode() && c->check_update())
@@ -128,8 +148,7 @@ bool timed_complaint::check_state_change(state_change_event state_change)
     switch (state_change)
     {
     case SC_WORLD_LOADED:
-        last_year = -1;
-        last_tick = -1;
+        reset();
         break;
 
     default:
@@ -137,4 +156,11 @@ bool timed_complaint::check_state_change(state_change_event state_change)
     }
 
     return false;
+}
+
+void timed_complaint::reset()
+{
+    last_year = -1;
+    last_tick = -1;
+    complaint::reset();
 }

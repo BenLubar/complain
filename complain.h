@@ -28,6 +28,7 @@ protected:
     virtual void check(color_ostream & out) = 0;
     virtual bool check_update() = 0;
     virtual bool check_state_change(state_change_event) = 0;
+    virtual void reset() {}
 
 private:
     bool check_mode();
@@ -46,6 +47,7 @@ public:
 protected:
     virtual bool check_update();
     virtual bool check_state_change(state_change_event);
+    virtual void reset();
 
 private:
     int32_t ticks;
